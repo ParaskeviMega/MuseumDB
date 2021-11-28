@@ -100,13 +100,18 @@ public class ExhibitDAO {
             connection = getConnection();
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                System.out.println("Id " + resultSet.getInt("id")
-                        + ", Title " + resultSet.getString("title")
-                        + ", Artist " + resultSet.getString("artist")
-                        + ", Date " + resultSet.getInt("date")
-                        + ", Culture " + resultSet.getString("culture")
-                        + ", Description " + resultSet.getString("description"));
+            if (!resultSet.next()){
+                System.out.println("The table is empty. \n");
+            } else {
+                do {
+                    System.out.println("Id: " + resultSet.getInt("id")
+                            + ", Title: " + resultSet.getString("title")
+                            + ", Artist: " + resultSet.getString("artist")
+                            + ", Date: " + resultSet.getInt("date")
+                            + ", Culture: " + resultSet.getString("culture")
+                            + ", Description: " + resultSet.getString("description")
+                            + ". \n");
+                } while (resultSet.next());
             }
         } catch (SQLException e) {
             e.printStackTrace();

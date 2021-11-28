@@ -7,13 +7,15 @@ public class Main {
                 1060, "Spanish", "Ivories-Elephant");
         // create museum table into mysql database
         object.createTable();
-        Exhibit second = new Exhibit();
-        // id -> the row we want to update
-        second.setId(1);
-        second.setArtist("Arvind");
+        object.printAll();
         // add data
         object.insert(first);
         object.printAll();
+        Exhibit second = new Exhibit();
+        // the id of the exhibit we want to update
+        second.setId(1);
+        // and the update we want to do
+        second.setArtist("Arvind");
         // update data
         object.update(second);
         object.printAll();
