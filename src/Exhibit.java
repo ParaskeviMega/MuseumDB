@@ -1,20 +1,21 @@
-import java.io.Serializable;
-
-public class Exhibit implements Serializable {
-    // id, title, artist, date, culture, description
+/* The exhibit class that manages the
+(id, title, artist, date, culture, description)
+variables of the created exhibit
+*/
+public class Exhibit {
     private int id, date;
     private String title, artist, culture, description;
 
-    public Exhibit() {
+    public Exhibit() {}
 
+    public Exhibit(int id, String title, String artist, int date, String culture, String description) {
+        this.id = id;
+        this.title = title;
+        this.artist = artist;
+        this.date = date;
+        this.culture = culture;
+        this.description = description;
     }
-
-    /*public Exhibit(int roll, String name, String course, String address) {
-        this.rollNo = roll;
-        this.name = name;
-        this.course = course;
-        this.address = address;
-    }*/
 
     public int getId() {
         return id;

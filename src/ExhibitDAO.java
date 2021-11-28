@@ -1,20 +1,23 @@
+/* The data access object class where we can create a table to mysql database,
+insert, update or delete an exhibit,
+print the exhibits of the table and delete the table
+ */
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ExhibitDAO {
-    Connection connection = null;
-    PreparedStatement statement = null;
-    ResultSet resultSet = null;
+    private Connection connection = null;
+    private PreparedStatement statement = null;
+    private ResultSet resultSet = null;
 
     public ExhibitDAO() {}
 
-    // id, title, artist, date, culture, description
-
     private Connection getConnection() throws SQLException {
         Connection connection;
-        connection = DBConnection.getInstance().getConnection();
+        connection = DBConnection.getDBConnection().getConnection();
         return connection;
     }
 
@@ -39,17 +42,18 @@ public class ExhibitDAO {
         }
     }
 
-    public void insert(Exhibit object) {
+    public void insert(Exhibit exhibit) {
         try {
-            String sql = "INSERT INTO museum(id, title, artist, date, culture, description) VALUES(?,?,?,?,?,?)";
+            String sql = "INSERT INTO museum(id, title, artist, date, culture, description) " +
+                    "VALUES(?,?,?,?,?,?)";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setInt(1, object.getId());
-            statement.setString(2, object.getTitle());
-            statement.setString(3, object.getArtist());
-            statement.setInt(4, object.getDate());
-            statement.setString(5, object.getCulture());
-            statement.setString(6, object.getDescription());
+            statement.setInt(1, exhibit.getId());
+            statement.setString(2, exhibit.getTitle());
+            statement.setString(3, exhibit.getArtist());
+            statement.setInt(4, exhibit.getDate());
+            statement.setString(5, exhibit.getCulture());
+            statement.setString(6, exhibit.getDescription());
             statement.executeUpdate();
             System.out.println("Data Added!");
         } catch (SQLException e) {
@@ -59,14 +63,13 @@ public class ExhibitDAO {
         }
     }
 
-    public void update(Exhibit object) {
+    public void update(Exhibit exhibit) {
         try {
-            System.out.println(object.getId() + object.getArtist());
             String sql = "UPDATE museum SET artist=? WHERE id=?";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setString(1, object.getArtist());
-            statement.setInt(2, object.getId());
+            statement.setString(1, exhibit.getArtist());
+            statement.setInt(2, exhibit.getId());
             statement.executeUpdate();
             System.out.println("Table Updated!");
         } catch (SQLException e) {
@@ -98,7 +101,6 @@ public class ExhibitDAO {
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                // id, title, artist, date, culture, description
                 System.out.println("Id " + resultSet.getInt("id")
                         + ", Title " + resultSet.getString("title")
                         + ", Artist " + resultSet.getString("artist")

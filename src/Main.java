@@ -1,16 +1,12 @@
 public class Main {
-    //id, title, artist, date, culture, description
+
     public static void main(String[] args) {
         ExhibitDAO object = new ExhibitDAO();
-        Exhibit first = new Exhibit();
+        //id, title, artist, date, culture, description
+        Exhibit first = new Exhibit(1, "Panel with San Millán", "Master Engelram",
+                1060, "Spanish", "Ivories-Elephant");
         // create museum table into mysql database
         object.createTable();
-        first.setId(1);
-        first.setTitle("Panel with San Millán");
-        first.setArtist("Master Engelram");
-        first.setDate(1060);
-        first.setCulture("Spanish");
-        first.setDescription("Ivories-Elephant");
         Exhibit second = new Exhibit();
         // id -> the row we want to update
         second.setId(1);
@@ -21,7 +17,7 @@ public class Main {
         // update data
         object.update(second);
         object.printAll();
-        // deletie data
+        // delete data
         object.delete(1);
         // print data
         object.printAll();

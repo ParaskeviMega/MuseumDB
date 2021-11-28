@@ -3,28 +3,19 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    //String driverClassName = "com.mysql.jdbc.Driver";
-    String connectionUrl = "jdbc:mysql://localhost:3306/mysql";
-    String dbUser = "root";
-    String dbPwd = "DBA123";
+    String url = "jdbc:mysql://localhost:3306/mysql";
+    String user = "root";
+    String password = "DBA123";
 
     private static DBConnection connectionFactory = null;
 
-    private DBConnection() {
-        /*try {
-            Class.forName(driverClassName);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }*/
-    }
-
     public Connection getConnection() throws SQLException {
-        Connection conn;
-        conn = DriverManager.getConnection(connectionUrl, dbUser, dbPwd);
-        return conn;
+        Connection connection;
+        connection = DriverManager.getConnection(url, user, password);
+        return connection;
     }
 
-    public static DBConnection getInstance() {
+    public static DBConnection getDBConnection() {
         if (connectionFactory == null) {
             connectionFactory = new DBConnection();
         }
